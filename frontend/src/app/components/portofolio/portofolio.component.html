@@ -1,0 +1,27 @@
+<div class="work-item">
+  <button mat-icon-button  [matMenuTriggerFor]="userMenu" [ngClass]="{'is-phone-portrait': isPhonePortrait, 'is-desktop': isDesktop}">
+    <img class="avatar-img" [src]="user.pfpUrl"  alt="avatar"/>
+  </button>
+  <span [ngClass]="{'is-phone-portrait': isPhonePortrait, 'is-desktop': isDesktop}">{{user.name}}</span>
+  <span [ngClass]="{'is-phone-portrait': isPhonePortrait, 'is-desktop': isDesktop}">{{user.description}}</span>
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item (click)="fileInput.click()">
+      <mat-icon>settings_applications </mat-icon>
+      <span>Change Profile Picture</span>
+    </button>
+  </mat-menu>
+  <input type="file" #fileInput style="display:none" (change)="onFileSelected($event)">
+  <button mat-raised-button  color="accent" (click)="openAddDialog(0)">Add Work</button>
+  <h3>My Projects</h3>
+  <mat-list class="example-list-wrapping" *ngFor="let work of user.works">
+    <mat-list-item lines="10">
+      <span class="span" matListItemTitle [ngClass]="{'is-phone-portrait': isPhonePortrait, 'is-desktop': isDesktop}">{{work.title}}</span>
+      <img class="images" [src]="work.imageUrl" alt="image" [ngClass]="{'is-phone-portrait': isPhonePortrait, 'is-desktop': isDesktop}"/>
+      <span class="span" [ngClass]="{'is-phone-portrait': isPhonePortrait, 'is-desktop': isDesktop}">{{work.description}}</span>
+      <a class="a" [href]="work.customerLink" target="_blank">View Customer</a>
+      <button mat-raised-button  color="primary" (click)="work.id && openAddDialog(work.id)">Edit</button>
+      <button mat-raised-button  color="warn" (click)="work.id && deleteWork(work.id)">Delete</button>
+      <button mat-raised-button  color="link" (click)="work.id && toggleVisibility(work.id)">Hide</button>
+    </mat-list-item>
+  </mat-list>
+</div>
